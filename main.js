@@ -1,18 +1,41 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
+const path = require('path')
 
-function createWindow() {
-  // 创建一个新的浏览器窗口
+function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      preload: path.join(__dirname, 'preload.js')
     }
-  });
+  })
 
-  // 加载应用的HTML文件
-  win.loadFile('index.html');
+  globalShortcut.register('CommandOrControl+E', () => {
+    console.log('你按下了Ctrl+E')
+  })
+
+  win.webContents.on('zoom-changed', (event, zoomDirection) => {
+    console.log(event, zoomDirection)
+  })
+
+  win.loadFile('index.html')
 }
 
-// 当Electron完成初始化并准备创建浏览器窗口时调用createWindow函数
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  ipcMain.handle('ping', () => {
+    return 'pong'
+  })
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
