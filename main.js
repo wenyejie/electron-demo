@@ -1,17 +1,8 @@
 // 主进程
-const {
-  app,
-  BrowserWindow,
-  screen,
-  ipcMain,
-  globalShortcut,
-  ipcRenderer,
-} = require('electron')
-
+const { app, BrowserWindow } = require('electron')
 const iohook = require('iohook')
 
 let win
-
 function createWindow() {
   win = new BrowserWindow({
     width: 800,
@@ -27,8 +18,6 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow()
-
-  console.log('iohook')
 
   let wheelIsDown = false
 
