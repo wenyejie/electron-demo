@@ -5,26 +5,32 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "rebuild": "electron-rebuild -f -w iohook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Storm",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.2.0",
+    "electron": "^12.2.3",
     "electron-abi": "^1.1.0",
-    "node-abi": "^3.45.0"
+    "electron-rebuild": "^3.2.9",
+    "node-abi": "^3.45.0",
+    "node-gyp": "^9.4.0"
+  },
+  "dependencies": {
+    "iohook": "^0.9.3"
   },
   "iohook": {
     "targets": [
-      "node-108",
-      "electron-80"
+      "node-83",
+      "electron-87"
     ],
     "platforms": [
       "win32",
       "darwin"
     ],
-    "arches": [
+    "archs": [
       "x64",
       "ia32"
     ]
