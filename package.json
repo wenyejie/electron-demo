@@ -2,9 +2,10 @@
   "name": "electron-demo",
   "version": "1.0.0",
   "description": "demo",
-  "main": "main.js",
+  "main": "./main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-builder",
     "rebuild": "electron-rebuild -f -w iohook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,12 +15,54 @@
   "devDependencies": {
     "electron": "^12.2.3",
     "electron-abi": "^1.1.0",
+    "electron-builder": "^24.4.0",
     "electron-rebuild": "^3.2.9",
     "node-abi": "^3.45.0",
     "node-gyp": "^9.4.0"
   },
   "dependencies": {
     "iohook": "^0.9.3"
+  },
+  "build": {
+    "appId": "com.electron.electron-demo",
+    "mac": {
+      "category": "your.app.category.type",
+      "target": [
+        "default"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    }
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "createDesktopShortcut": "always",
+    "allowToChangeInstallationDirectory": true
+  },
+  "dmg": {
+    "contents": [
+      {
+        "x": 410,
+        "y": 150,
+        "type": "link",
+        "path": "/Applications"
+      },
+      {
+        "x": 130,
+        "y": 150,
+        "type": "file"
+      }
+    ]
   },
   "iohook": {
     "targets": [

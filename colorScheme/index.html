@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Color Scheme -- Electron</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #333;
+          color: white;
+        }
+      }
+
+      @media (prefers-color-scheme: light) {
+        body {
+          background: #ddd;
+          color: black;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Color Scheme -- Electron</h1>
+    <p>Current theme source: <strong id="theme-source">System</strong></p>
+
+    <button id="toggle-color-scheme">Toggle Color Scheme</button>
+    <button id="reset-to-system">Reset to System Theme</button>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

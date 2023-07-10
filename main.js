@@ -1,15 +1,18 @@
 // 主进程
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const iohook = require('iohook')
+const {join} = require('path')
 
 let win
 function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+      preload: join(__dirname, 'preload.js')
     },
   })
 
@@ -43,6 +46,7 @@ app.whenReady().then(() => {
     // console.log('Ctrl+Shift', keys)
     if (wheelIsDown) {
       console.log('you use Ctrl+Shift+Wheel!!!' + Math.random(1))
+      win.webContents.send('sendMessage', 'you use Ctrl+Shift+Wheel!!!' + Math.random(1))
     }
   })
 
