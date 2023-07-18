@@ -45,8 +45,8 @@ app.whenReady().then(() => {
   iohook.registerShortcut([29, 42], (keys) => {
     // console.log('Ctrl+Shift', keys)
     if (wheelIsDown) {
-      console.log('you use Ctrl+Shift+Wheel!!!' + Math.random(1))
-      win.webContents.send('sendMessage', 'you use Ctrl+Shift+Wheel!!!' + Math.random(1))
+      // console.log('you use Ctrl+Shift+Wheel!!!' + Math.random(1))
+      win.webContents.send('sendMessage', 'you use Ctrl+Shift+Wheel!!!!' + Math.random(1))
     }
   })
 
