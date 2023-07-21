@@ -2,7 +2,7 @@
   "name": "electron-demo",
   "version": "1.0.0",
   "description": "demo",
-  "main": "./desktopCapturer/main.js",
+  "main": "./electronStore/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
@@ -21,6 +21,7 @@
     "node-gyp": "^9.4.0"
   },
   "dependencies": {
+    "electron-store": "^8.1.0",
     "iohook": "^0.9.3"
   },
   "build": {
