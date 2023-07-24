@@ -10,4 +10,10 @@ contextBridge.exposeInMainWorld('electron', {
   getScreenCaptureData: (callback) => {
     ipcRenderer.on('getScreenCaptureData', callback)
   },
+  checkScreenCapturerAccess: () => {
+    ipcRenderer.send('checkScreenCapturerAccess')
+  },
+  screenCapturerAccess: (callback) => {
+    ipcRenderer.on('screenCapturerAccess', callback)
+  }
 })

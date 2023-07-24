@@ -2,7 +2,7 @@
   "name": "electron-demo",
   "version": "1.0.0",
   "description": "demo",
-  "main": "./electronStore/main.js",
+  "main": "./desktopCapturer/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",

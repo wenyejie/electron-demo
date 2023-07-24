@@ -6,12 +6,13 @@ const store = new ElectronStore()
 
 ElectronStore.initRenderer()
 
-store.set('demo', 1111)
-
 function createWindow () {
   const mainWindow = new BrowserWindow({
     webPreferences: {
-      // preload: path.join(__dirname, './preload.js')
+      nodeIntegration: true, //是否完整的支持 node.
+      enableRemoteModule: true, //来打开remote模块，使得渲染进程中可以调用主进程的方法
+      contextIsolation: true,
+      preload: path.join(__dirname, './preload.js')
     }
   })
   mainWindow.loadFile('./electronStore/index.html')
@@ -22,6 +23,24 @@ function createWindow () {
 
 app.whenReady().then(() => {
   createWindow()
+
+  ipcMain.on('config', (event, {key, value, watch}) => {
+    if (watch) {
+      return store.onDidChange(key, (newValue, oldValue) => {
+        return event.sender.send('watchConfig', { key, newValue, oldValue })
+      })
+    }
+
+    if (value === undefined) {
+      // event.sender.send()
+      value = store.get(key)
+      return event.sender.send('getConfig', { key, value })
+    }
+    if (store.get(key) === value) {
+      return
+    }
+    return store.set(key, value)
+  })
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
