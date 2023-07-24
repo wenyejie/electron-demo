@@ -15,5 +15,11 @@ contextBridge.exposeInMainWorld('electron', {
   },
   screenCapturerAccess: (callback) => {
     ipcRenderer.on('screenCapturerAccess', callback)
+  },
+  askDesktopCapturerAccess:() =>{
+    ipcRenderer.send('askDesktopCapturerAccess')
+  },
+  askDesktopCapturerResult: callback => {
+    ipcRenderer.on('askDesktopCapturerResult', callback)
   }
 })

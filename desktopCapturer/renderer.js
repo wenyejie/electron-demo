@@ -14,6 +14,13 @@ $auth.addEventListener('click', () => {
 
 window.electron.screenCapturerAccess((event, result) => {
   console.log('screenCapturerAccess result:', result)
+  if (!result) {
+    window.electron.askDesktopCapturerAccess()
+  }
+})
+
+window.electron.askDesktopCapturerResult((event, result) => {
+  console.log('askDesktopCapturerResult', result)
 })
 
 window.electron.getScreenCaptureData(async (event, response) => {

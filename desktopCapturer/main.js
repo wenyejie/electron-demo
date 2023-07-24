@@ -1,4 +1,4 @@
-const { app, screen, ipcMain, BrowserWindow, desktopCapturer } = require('electron')
+const { app, screen, ipcMain, BrowserWindow, desktopCapturer, systemPreferences } = require('electron')
 const path = require('path')
 
 let win
@@ -41,5 +41,15 @@ app.whenReady().then( () => {
     const imgUrl = await screenCapture()
     win.webContents.send('getScreenCaptureData', imgUrl)
   })
+  ipcMain.on('checkScreenCapturerAccess', (event) => {
+    event.sender.send('screenCapturerAccess', systemPreferences.getMediaAccessStatus('screen'))
+  })
+
+  ipcMain.on('askDesktopCapturerAccess', event => {
+    systemPreferences.askForMediaAccess('screen').then(result => {
+      event.sender.send('askDesktopCapturerResult', result)
+    })
+  })
+
   createWindow()
 })
