@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, systemPreferences } = require('electron')
 const path = require('path')
 const ipc = require('./ipc4main')
 
@@ -36,9 +36,14 @@ function createWindow () {
 
 app.whenReady().then(() => {
   ipc.on('login').then(({ event, data }) => {
-    console.log(event, data)
+    // console.log(event, data)
     ipc.send(event.sender, 'loginSuccess', { autoLearning: true, isFirstStart: false })
   })
+
+  ipc.invoke('getMediaAccessStatus', (event, data) => {
+    return systemPreferences.getMediaAccessStatus('screen')
+  })
+
   createWindow()
 
   app.on('activate', function () {

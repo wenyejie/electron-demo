@@ -36,6 +36,17 @@ const screenCapture = () => {
   })
 }
 
+const hasScreenCaptureAccess = () => {
+  return systemPreferences.getMediaAccessStatus('screen') === 'granted'
+}
+
+const askScreenCaptureAccess = () => {
+  if (hasScreenCaptureAccess()) {
+    return true
+  }
+  return systemPreferences.askForMediaAccess('screen')
+}
+
 async function requestScreenCapturePermission() {
   const status = systemPreferences.getMediaAccessStatus('screen')
   if (status === 'not-determined') {
@@ -53,21 +64,10 @@ async function requestScreenCapturePermission() {
 }
 
 app.whenReady().then( () => {
-  ipcMain.on('startScreenCapture', async (event, response) => {
-    const imgUrl = await screenCapture()
-    win.webContents.send('getScreenCaptureData', imgUrl)
-  })
-  ipcMain.on('checkScreenCapturerAccess', (event) => {
-    event.sender.send('screenCapturerAccess', systemPreferences.getMediaAccessStatus('screen'))
-  })
 
-  ipcMain.on('askDesktopCapturerAccess', event => {
-    systemPreferences.askForMediaAccess('screen').then(result => {
-      event.sender.send('askDesktopCapturerResult', result)
-    })
-  })
+  console.log('hasScreenCaptureAccess:', hasScreenCaptureAccess())
+
+  console.log('askScreenCaptureAccess:', askScreenCaptureAccess())
 
   createWindow()
-
-  requestScreenCapturePermission()
 })

@@ -24,8 +24,18 @@ class Ipc4renderer {
     })
   }
 
+  invoke (channel, data) {
+    if (!channel) {
+      return
+    }
+    return this.#api.invoke({ channel, data })
+  }
+
   // 发送事件
   send(channel, data) {
+    if (!channel) {
+      return
+    }
     this.#api.send({ channel, data })
   }
 

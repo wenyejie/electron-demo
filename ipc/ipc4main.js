@@ -2,6 +2,7 @@ const { ipcMain } = require('electron')
 
 class Ipc4main {
   #queueMap = {}
+  #invokeMap = {}
 
   constructor() {
     ipcMain.on('send', (event, response) => {
@@ -25,6 +26,29 @@ class Ipc4main {
       this.#queueMap[channel] = queue.filter(({ type }) => type === 'on')
     })
 
+    ipcMain.handle('invoke', (event, response) => {
+      if (!response || !response?.channel) {
+        return
+      }
+      const { channel, data } = response
+
+      if (!channel) {
+        return
+      }
+      const callback = this.#invokeMap[channel]
+      if (typeof callback !== 'function') {
+        return
+      }
+      return callback(event, data)
+    })
+
+  }
+
+  invoke (channel, callback) {
+    if (!channel || typeof callback !== 'function') {
+      return
+    }
+    this.#invokeMap[channel] = callback
   }
 
   on(channel, callback) {
