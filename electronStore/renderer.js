@@ -60,16 +60,16 @@ const config = new Config()
 
 
 
-config.watch('username', ({ newValue, oldValue }) => {
+config.watch('1', ({ newValue, oldValue }) => {
   console.log('config watch username', newValue, oldValue)
 })
 
 document.querySelector('.set').addEventListener('click', () => {
-  config.set('username', 'storm3')
+  config.set('1.autoStart', true)
 })
 
 document.querySelector('.get').addEventListener('click', () => {
-  config.get('username').then(value => {
+  config.get('1').then(value => {
     console.log('get config', value)
   })
 })

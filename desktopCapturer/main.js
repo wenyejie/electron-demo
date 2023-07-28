@@ -36,6 +36,22 @@ const screenCapture = () => {
   })
 }
 
+async function requestScreenCapturePermission() {
+  const status = systemPreferences.getMediaAccessStatus('screen')
+  if (status === 'not-determined') {
+    const success = await systemPreferences.askForMediaAccess('screen')
+    if (success) {
+      console.log('用户已授权屏幕录制权限')
+    } else {
+      console.log('用户拒绝了屏幕录制权限')
+    }
+  } else if (status === 'granted') {
+    console.log('应用程序已经具有屏幕录制权限')
+  } else {
+    console.log('应用程序没有屏幕录制权限')
+  }
+}
+
 app.whenReady().then( () => {
   ipcMain.on('startScreenCapture', async (event, response) => {
     const imgUrl = await screenCapture()
@@ -52,4 +68,6 @@ app.whenReady().then( () => {
   })
 
   createWindow()
+
+  requestScreenCapturePermission()
 })

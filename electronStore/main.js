@@ -27,6 +27,7 @@ app.whenReady().then(() => {
   ipcMain.on('config', (event, {key, value, watch}) => {
     if (watch) {
       return store.onDidChange(key, (newValue, oldValue) => {
+        console.log('watch config', newValue, oldValue)
         return event.sender.send('watchConfig', { key, newValue, oldValue })
       })
     }

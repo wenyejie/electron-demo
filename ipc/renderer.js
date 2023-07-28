@@ -1,8 +1,11 @@
-const counter = document.getElementById('counter')
+import ipc from './ipc4renderer.js'
+const $input = document.getElementById('.input')
+const $add = document.querySelector('.add')
 
-window.electronAPI.handleCounter((event, value) => {
-  const oldValue = Number(counter.innerText)
-  const newValue = oldValue + value
-  counter.innerText = newValue
-  event.sender.send('counter-value', newValue)
+$add.addEventListener('click', () => {
+  ipc.send('login', { userId: 'userId', isVip: true })
+})
+
+ipc.on('loginSuccess').then(({ event, data }) => {
+  console.log(event, data)
 })

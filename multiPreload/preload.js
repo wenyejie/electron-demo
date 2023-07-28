@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron')
+require('./preload1')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  on: (callback) => ipcRenderer.on('on', callback),
-  send: (options) => ipcRenderer.send('send', options),
+  handleCounter: (callback) => ipcRenderer.on('update-counter', callback)
 })

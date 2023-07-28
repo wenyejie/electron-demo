@@ -1,12 +1,10 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('path')
-const ipc = require('./ipc4main')
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
-    name: 'ipcTest',
     webPreferences: {
-      preload: path.join(__dirname, './preload.js')
+      preload: path.join(__dirname, './preload.js'),
     }
   })
 
@@ -35,9 +33,8 @@ function createWindow () {
 }
 
 app.whenReady().then(() => {
-  ipc.on('login').then(({ event, data }) => {
-    console.log(event, data)
-    ipc.send(event.sender, 'loginSuccess', { autoLearning: true, isFirstStart: false })
+  ipcMain.on('counter-value', (_event, value) => {
+    console.log(value) // will print value to Node console
   })
   createWindow()
 
