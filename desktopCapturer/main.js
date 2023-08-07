@@ -1,5 +1,6 @@
-const { app, screen, BrowserWindow, desktopCapturer, systemPreferences } = require('electron')
+const { app, ipcMain, BrowserWindow, desktopCapturer, systemPreferences } = require('electron')
 const path = require('path')
+const ipc = require('../ipc/ipc4renderer')
 
 let win
 const createWindow = () => {
@@ -23,8 +24,8 @@ const tryScreenCapture = () => {
   return desktopCapturer.getSources({
     types: ['screen'],
     thumbnailSize: {
-      width: 100,
-      height: 100,
+      width: 0,
+      height: 0,
     }
   }).then(sources => {
     console.log('screen capture success', sources.length > 0)
@@ -44,7 +45,10 @@ const askScreenCaptureAccess = () => {
   }
 
   try {
-    return systemPreferences.askForMediaAccess('screen')
+    return systemPreferences
+      .askForMediaAccess('screen')
+      .then(() => true, tryScreenCapture)
+      .catch(tryScreenCapture)
   } catch (e) {
     return tryScreenCapture()
   }

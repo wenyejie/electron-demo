@@ -2,7 +2,7 @@
   "name": "electron-demo",
   "version": "1.0.0",
   "description": "demo",
-  "main": "./desktopCapturer/main.js",
+  "main": "./screenshot4webp/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
