@@ -10,8 +10,8 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true, //是否完整的支持 node.
-      enableRemoteModule: true, //来打开remote模块，使得渲染进程中可以调用主进程的方法
-      contextIsolation: true,
+      // enableRemoteModule: true, //来打开remote模块，使得渲染进程中可以调用主进程的方法
+      // contextIsolation: true,
       preload: path.join(__dirname, './preload.js')
     }
   })

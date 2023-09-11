@@ -2,7 +2,7 @@
   "name": "electron-demo",
   "version": "1.0.0",
   "description": "demo",
-  "main": "./screenshot4webp/main.js",
+  "main": "./electronStore/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
@@ -13,16 +13,18 @@
   "author": "Storm",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^12.2.3",
+    "electron": "^25.5.0",
     "electron-abi": "^1.1.0",
-    "electron-builder": "^24.4.0",
+    "electron-builder": "^24.6.3",
     "electron-rebuild": "^3.2.9",
     "node-abi": "^3.45.0",
     "node-gyp": "^9.4.0"
   },
   "dependencies": {
-    "electron-store": "^8.1.0",
-    "iohook": "^0.9.3"
+    "electron": "^25.5.0",
+    "electron-builder": "^24.6.3",
+    "electron-log": "beta",
+    "electron-store": "^8.1.0"
   },
   "build": {
     "appId": "com.electron.electron-demo",
