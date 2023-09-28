@@ -2,7 +2,7 @@
   "name": "electron-demo",
   "version": "1.0.0",
   "description": "demo",
-  "main": "./electronStore/main.js",
+  "main": "./fileProtocol/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
@@ -13,7 +13,7 @@
   "author": "Storm",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.5.0",
+    "electron": "^26.2.0",
     "electron-abi": "^1.1.0",
     "electron-builder": "^24.6.3",
     "electron-rebuild": "^3.2.9",
@@ -21,7 +21,6 @@
     "node-gyp": "^9.4.0"
   },
   "dependencies": {
-    "electron": "^25.5.0",
     "electron-builder": "^24.6.3",
     "electron-log": "beta",
     "electron-store": "^8.1.0"
